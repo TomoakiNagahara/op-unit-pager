@@ -1,0 +1,111 @@
+<?php
+/**
+ * unit-pager:/pager.phtml
+ *
+ * @creation  2018-12-19
+ * @version   1.0
+ * @package   unit-pager
+ * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
+ * @copyright Tomoaki Nagahara All right reserved.
+ */
+//	...
+if( false ){
+	$total_pages  = null;
+	$current_page = null;
+	$option       = null;
+	$kind         = null;
+};
+
+//	...
+$arm         = empty($option['wings']) ? 1: (int)$option['wings'];
+$gibbon      = ($arm * 2) +1;
+$page_number = null;
+
+//	...
+if( $total_pages > 1 ){
+	$st = $current_page - $arm;
+	$en = $current_page + $arm;
+
+	//	...
+	if( $st < 2 ){
+		$st = 2;
+		$en = $st + ($arm * 2);
+		if( $en >= $total_pages ){
+			$en  = $total_pages -1;
+		};
+	};
+}else{
+	$st = $total_pages;
+	$en = $total_pages +1;
+};
+
+//	...
+if( $en >= $total_pages ){
+	$en  = $total_pages -1;
+	$st  = $en - ($arm * 2);
+	if( $st < 2 ){
+		$st = 2;
+	};
+};
+
+?>
+<nav class="OP pager">
+	<?php
+	//	Got to previous page
+	$kind = 'forward';
+	include(__DIR__.'/pager-num.phtml');
+
+	//	Got to first page.
+	$page_number = 1;
+	include(__DIR__.'/pager-num.phtml');
+
+	//	To omit mark.
+	if( $st > 2 and $current_page > 2 ){
+		//	...
+		if( $st === 3 ){
+			$page_number = 2;
+		}else{
+			$kind = 'omit';
+		}
+
+		//	...
+		include(__DIR__.'/pager-num.phtml');
+	};
+
+	//	Each pages.
+	for( $i=$st; $i<=$en; $i++ ){
+		//	Did separate page number from loop count.
+		$page_number = $i;
+
+		//	...
+		include(__DIR__.'/pager-num.phtml');
+	};
+
+	//	To omit mark.
+	if( $current_page < $en and $en < $total_pages -1 ){
+		//	...
+		if( $en === $total_pages -2 ){
+			$page_number = $total_pages -1;
+		}else{
+			$kind = 'omit';
+		};
+
+		//	...
+		include(__DIR__.'/pager-num.phtml');
+	};
+
+	//	Go to last page.
+	if( $total_pages > 1 ){
+		$page_number = $total_pages;
+		include(__DIR__.'/pager-num.phtml');
+	};
+
+	//	Go to next page.
+	$kind = 'backward';
+	include(__DIR__.'/pager-num.phtml');
+	?>
+</nav>
+<?php
+if( 1 ){
+	D("st=$st, en=$en, current_page=$current_page, total=$total_pages, gibbon=$gibbon, arm=$arm, kind=$kind, page_number=$page_number");
+};

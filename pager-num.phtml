@@ -1,0 +1,86 @@
+<?php
+/**
+ * unit-pager:/pager-num.phtml
+ *
+ * @creation  2018-12-19
+ * @version   1.0
+ * @package   unit-pager
+ * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
+ * @copyright Tomoaki Nagahara All right reserved.
+ */
+//	...
+if( false ){
+	$current_page = null;
+	$total_pages  = null;
+	$page_number  = null;
+	$key_name     = null;
+	$kind         = null;
+	$classes      = null;
+};
+
+//	...
+$href        = true;
+$view_number = $page_number;
+
+//	...
+if( $kind === null and $page_number === $current_page){
+	$kind = 'current';
+};
+
+//	...
+if( $kind ){
+	//	...
+	$classes[]   = $kind;
+	$view_number = false;
+
+	//	...
+	switch( $kind ){
+		case 'current':
+			$href = false;
+			$view_number = $page_number;
+			break;
+
+		case 'omit':
+			break;
+
+		case 'forward':
+			if( $current_page > 1 ){
+				$page_number = $current_page - 1;
+			}else{
+				$href = false;
+			}
+			break;
+
+		case 'backward':
+			if( $current_page < $total_pages ){
+				$page_number = $current_page + 1;
+			}else{
+				$href = false;
+			};
+			break;
+
+		default:
+			\Notice::Set("Has not been support this kind. ($kind)");
+	};
+};
+
+//	...
+if( $href ){
+	$classes[] = 'page-number-'.$page_number;
+	$href = http_build_query( array_merge($_GET, [$key_name=>$page_number]));
+};
+
+//	...
+$class = join(' ', $classes);
+
+//	...
+$kind    = null;
+$classes = [];
+?>
+<span class="page">
+	<?php if( $href ): ?><a href="?<?= $href ?>"><?php endif; ?>
+	<span class="number <?= $class ?>">
+		<?php if( $view_number ){ echo $view_number; } ?>
+	</span>
+	<?php if( $href ): ?></a><?php endif; ?>
+</span>
