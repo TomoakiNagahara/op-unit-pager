@@ -1,13 +1,18 @@
 <?php
-/**
- * unit-pager:/pager-num.phtml
+/** op-unit-pager
  *
  * @creation  2018-12-19
  * @version   1.0
- * @package   unit-pager
+ * @package   op-unit-pager
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
+
+/** namespace
+ *
+ */
+namespace OP;
+
 //	...
 if( false ){
 	$current_page = null;
@@ -60,7 +65,7 @@ if( $kind ){
 			break;
 
 		default:
-			\Notice::Set("Has not been support this kind. ($kind)");
+			Notice::Set("Has not been support this kind. ($kind)");
 	};
 };
 

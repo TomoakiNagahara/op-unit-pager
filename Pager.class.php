@@ -15,6 +15,12 @@
  */
 namespace OP\UNIT;
 
+/** Used class
+ *
+ */
+use OP\OP_CORE;
+use OP\IF_DATABASE;
+
 /** Pager
  *
  * @creation  2018-06-12
@@ -28,7 +34,7 @@ class pager
 	/** trait
 	 *
 	 */
-	use \OP_CORE;
+	use OP_CORE;
 
 	/** Configurations.
 	 *
@@ -39,7 +45,7 @@ class pager
 	/** Generate configuration.
 	 *
 	 * @param	 array		 $config;
-	 * @param	\IF_DATABASE $db
+	 * @param	 IF_DATABASE $db
 	 */
 	function Config($config=[], $db)
 	{
@@ -106,7 +112,7 @@ class pager
 	/** Do display.
 	 *
 	 * @param	 array		 $config;
-	 * @param	\IF_DATABASE $db
+	 * @param	 IF_DATABASE $db
 	 */
 	function Display()
 	{
@@ -127,7 +133,7 @@ class pager
 
 		//	...
 		if( false ){
-			var_dump($total_pages, $current_page, $key_name, $option);
+			D($total_pages, $current_page, $key_name, $option);
 		};
 	}
 
